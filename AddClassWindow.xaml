@@ -1,0 +1,25 @@
+﻿<Window x:Class="ClassTeacher_Assist.AddClassWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClassTeacher_Assist"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:AddClassWindow}"
+        Title="AddClassWindow" Height="216" Width="300">
+    <Grid Background="#B6B6B6" Height="200" Width="300">
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Код класу" Margin="0, 0, 0,0"/>
+        <TextBox x:Name="CodeTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,25,0,0" Width="200" Height="30" FontSize="16"/>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Класний керівник" Margin="0, 65, 0,0"/>
+        <ComboBox ItemsSource="{Binding Path = Teachers, RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"
+            x:Name="TeacherComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,90,0,0" Width="200" Height="30" FontSize="16">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path = FullNameAndClass}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button x:Name="AddClassButton" Content="Додати" Background="#7BF18E" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,30" Width="200" Height="30" FontSize="16" Cursor="Hand" Click="AddClassButton_Click"/>
+    </Grid>
+</Window>

@@ -1,0 +1,48 @@
+﻿<Window x:Class="ClassTeacher_Assist.EditTeacherWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClassTeacher_Assist"
+        d:DataContext="{d:DesignInstance Type=local:EditTeacherWindow}"
+        mc:Ignorable="d"
+        Title="EditTeacherWindow" Height="645" Width="300" Loaded="Window_Loaded">
+    <Grid Background="#B6B6B6" Height="630" Width="300">
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Предмет" Margin="0,73,0,0"/>
+        <ComboBox ItemsSource="{Binding Path = Subjects, RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"
+            x:Name="SubjectsComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0" Width="200" Height="30" FontSize="16">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path = Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Ім'я" Margin="0,140,0,0"/>
+        <TextBox x:Name="NameTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,165,0,0" Width="200" Height="30" FontSize="16"/>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Прізвище" Margin="0,200,0,0"/>
+        <TextBox x:Name="SurnameTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,225,0,0" Width="200" Height="30" FontSize="16"/>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="По батькові" Margin="0,260,0,0"/>
+        <TextBox x:Name="PatronymicTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,285,0,0" Width="200" Height="30" FontSize="16"/>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Стать" Margin="0,320,0,0"/>
+        <ComboBox x:Name="GenderComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,345,0,0" Width="200" Height="30" FontSize="16">
+            <Label FontSize="16" Cursor="Hand" Content="Чоловік"/>
+            <Label FontSize="16" Cursor="Hand" Content="Жінка"/>
+        </ComboBox>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Номер телефону" Margin="0,380,0,0"/>
+        <TextBox x:Name="PhoneNumberTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Height="30" FontSize="16" Margin="0,410,0,0"/>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Адреса" Margin="0,440,0,0"/>
+        <TextBox x:Name="AddressTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,465,0,0" Width="200" Height="30" FontSize="16"/>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Електронна пошта" Margin="0,500,0,0"/>
+        <TextBox x:Name="EmailTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,525,0,0" Width="200" Height="30" FontSize="16"/>
+
+        <Button x:Name="EditTeacherButton" Content="Змінити" Background="#7CAED2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,575,0,0" Width="200" Height="30" FontSize="16" Cursor="Hand" Click="EditTeacherButton_Click"/>
+    </Grid>
+</Window>

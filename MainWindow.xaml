@@ -1,0 +1,109 @@
+﻿<Window x:Class="ClassTeacher_Assist.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClassTeacher_Assist"
+        mc:Ignorable="d"
+        Title="ClassTeacher Assist" Height="567" Width="1000" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid Height="550" Width="1000" Background="#B6B6B6">
+        <TextBlock 
+            x:Name="InfoTextBox"
+            HorizontalAlignment="Center" VerticalAlignment="Top" 
+            Margin="0,0,0,0"
+            FontSize="24" TextAlignment="Center">
+            Інформація про <LineBreak/> вчителя
+        </TextBlock>
+        <TextBlock 
+            x:Name="CurrentTableTextBox"
+            HorizontalAlignment="Center" VerticalAlignment="Top" 
+            Margin="0,70,0,0"
+            FontSize="24" TextAlignment="Center">
+            Що відображується
+        </TextBlock>
+        <Button x:Name="QuitButton"
+            Background="#B14242"
+            Content="Вийти з системи" FontSize="16" 
+            HorizontalAlignment="Right" Margin="0,20,40,490"
+            Width="180" Cursor="Hand" Click="QuitButton_Click"/>
+        <DataGrid 
+                  x:Name="MainDataGrid"
+                  IsReadOnly="True"
+                  Width="970" Height="250" Background="#D9D9D9" 
+                  Margin="15,111,15,189"/>
+        <TextBlock 
+            HorizontalAlignment="Center" VerticalAlignment="Center" 
+            Margin="0,220,0,0"
+            FontSize="20" TextAlignment="Center">
+            Що відображати
+        </TextBlock>
+        <ComboBox FontSize="16" x:Name="TablesComboBox" HorizontalAlignment="Center" Margin="0,0,0,120" VerticalAlignment="Bottom" Width="152" SelectionChanged="TablesComboBox_SelectionChanged">
+            <ComboBoxItem IsSelected="True">
+                Учні
+            </ComboBoxItem>
+            <ComboBoxItem >
+                Викладання
+            </ComboBoxItem>
+            <ComboBoxItem >
+                Оцінки
+            </ComboBoxItem>
+            <ComboBoxItem>
+                Пропуски
+            </ComboBoxItem>
+            <ComboBoxItem>
+                Усі вчителі
+            </ComboBoxItem>
+        </ComboBox>
+
+        <RadioButton IsChecked="True" x:Name="SelfClassRadioButton" GroupName="Filtering" VerticalContentAlignment="Center" FontSize="20" Content="Ваш клас" HorizontalAlignment="Center" Margin="0,0,10,95" VerticalAlignment="Bottom" Checked="Filtering_Changed"/>
+        <RadioButton x:Name="AllClassesRadioButton" GroupName="Filtering" VerticalContentAlignment="Center" FontSize="20" Content="Усі класи" HorizontalAlignment="Center" Margin="0,0,9,75" VerticalAlignment="Bottom" Checked="Filtering_Changed"/>
+
+        <TextBlock 
+            HorizontalAlignment="Left" VerticalAlignment="Center" 
+            Margin="35,220,0,0"
+            FontSize="20" TextAlignment="Center">
+            Учень
+        </TextBlock>
+        <Button x:Name="AddStudentButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,280,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddStudentButton_Click"/>
+        <Button x:Name="DeleteStudentButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="45,280,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteStudentButton_Click"/>
+        <Button x:Name="EditStudentButton" Content="/" Background="#7CAED2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="75,280,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="EditStudentButton_Click"/>
+
+        <TextBlock 
+            HorizontalAlignment="Left" VerticalAlignment="Center" 
+            Margin="150,220,0,0"
+            FontSize="20" TextAlignment="Center">
+            Вчитель (ви)
+        </TextBlock>
+        <Button x:Name="DeleteTeacherButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="170,280,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteTeacherButton_Click"/>
+        <Button x:Name="EditTeacherButton" Content="/" Background="#7CAED2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="200,280,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="EditTeacherButton_Click"/>
+
+        <TextBlock 
+            HorizontalAlignment="Left" VerticalAlignment="Center" 
+            Margin="20,370,0,0"
+            FontSize="20" TextAlignment="Center">
+            Пропуск
+        </TextBlock>
+        <Button x:Name="AddSkipButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="27,430,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddSkipButton_Click"/>
+        <Button x:Name="DeleteSkipButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="57,430,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteSkipButton_Click"/>
+
+        <TextBlock 
+            HorizontalAlignment="Left" VerticalAlignment="Center" 
+            Margin="150,370,0,0"
+            FontSize="20" TextAlignment="Center">
+            Оцінка
+        </TextBlock>
+        <Button x:Name="AddGradeButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="151,430,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddGradeButton_Click"/>
+        <Button x:Name="DeleteGradeButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="181,430,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteGradeButton_Click"/>
+
+        <TextBlock 
+            HorizontalAlignment="Left" VerticalAlignment="Center" 
+            Margin="270,370,0,0"
+            FontSize="20" TextAlignment="Center">
+            Викладання
+        </TextBlock>
+        <Button x:Name="AddTeachingButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="293,430,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddTeachingButton_Click"/>
+        <Button x:Name="DeleteTeachingButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="323,430,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteTeachingButton_Click"/>
+        
+
+    </Grid>
+</Window>

@@ -1,0 +1,36 @@
+﻿<Window x:Class="ClassTeacher_Assist.AddSkipWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClassTeacher_Assist"
+        d:DataContext="{d:DesignInstance Type=local:AddSkipWindow}"
+        mc:Ignorable="d"
+        Title="AddSkipWindow" Height="350" Width="300">
+    <Grid Background="#B6B6B6" Height="335" Width="300">
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Учень, який отримає пропуск"/>
+        <ComboBox ItemsSource="{Binding Path = Students, RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"
+            x:Name="StudentComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" Width="200" Height="30" FontSize="16">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path = FullName}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Причина" Margin="0, 65, 0,0"/>
+        <ComboBox
+            x:Name="ReasonComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,95,0,0" Width="200" Height="30" FontSize="16">
+            <Label FontSize="16" Cursor="Hand" Content="Поважна"/>
+            <Label FontSize="16" Cursor="Hand" Content="Не поважна"/>
+        </ComboBox>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Опис (може бути пустим)" Margin="0, 130, 0,0"/>
+        <TextBox x:Name="DescriptionTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,160,0,0" Width="200" Height="30" FontSize="16"/>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Дата" Margin="0, 195, 0,0"/>
+        <DatePicker x:Name="DatePicker" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,225,0,0" Width="200" Height="30" FontSize="16"/>
+
+        <Button x:Name="AddSkipButton" Content="Додати" Background="#7BF18E" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,25" Width="200" Height="30" FontSize="16" Cursor="Hand" Click="AddSkipButton_Click"/>
+    </Grid>
+</Window>

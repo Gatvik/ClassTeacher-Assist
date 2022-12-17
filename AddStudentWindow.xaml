@@ -1,0 +1,39 @@
+﻿<Window x:Class="ClassTeacher_Assist.AddStudentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClassTeacher_Assist"
+        d:DataContext="{d:DesignInstance Type=local:AddStudentWindow}"
+        mc:Ignorable="d"
+        Title="AddStudentWindow" Height="540" Width="300" Loaded="Window_Loaded">
+    <Grid Background="#B6B6B6" Height="525" Width="300">
+
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Ім'я" Margin="0,3,0,0"/>
+        <TextBox x:Name="NameTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,28,0,0" Width="200" Height="30" FontSize="16"/>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Прізвище" Margin="0,63,0,0"/>
+        <TextBox x:Name="SurnameTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,88,0,0" Width="200" Height="30" FontSize="16"/>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="По батькові" Margin="0,123,0,0"/>
+        <TextBox x:Name="PatronymicTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,148,0,0" Width="200" Height="30" FontSize="16"/>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Стать" Margin="0,183,0,0"/>
+        <ComboBox x:Name="GenderComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,208,0,0" Width="200" Height="30" FontSize="16" SelectedValuePath="Content">
+            <Label FontSize="16" Cursor="Hand" Content="Чоловік"/>
+            <Label FontSize="16" Cursor="Hand" Content="Жінка"/>
+        </ComboBox>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Номер телефону" Margin="0,243,0,0"/>
+        <TextBox x:Name="PhoneNumberTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Height="30" FontSize="16" Margin="0,273,0,0"/>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Адреса" Margin="0,303,0,0"/>
+        <TextBox x:Name="AddressTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,328,0,0" Width="200" Height="30" FontSize="16"/>
+
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Електронна пошта" Margin="0,363,0,0"/>
+        <TextBox x:Name="EmailTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,388,0,0" Width="200" Height="30" FontSize="16"/>
+
+        <Button x:Name="AddClassButton" Content="Додати" Background="#7BF18E" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,438,0,0" Width="200" Height="30" FontSize="16" Cursor="Hand" Click="AddClassButton_Click"/>
+    </Grid>
+</Window>
