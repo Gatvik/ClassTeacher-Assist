@@ -34,5 +34,7 @@ public partial class Teacher
 
     [NotMapped]
     public string FullNameAndClass { get { return $"{LastName} {FirstName} {Patronymic} {Common.GetTeachersClassCode(TeacherId)}"; } }
+    [NotMapped]
+    public string FullName { get { return $"{LastName} {FirstName} {Patronymic}"; } }
     public virtual ICollection<Teaching> Teachings { get; } = new List<Teaching>();
 }

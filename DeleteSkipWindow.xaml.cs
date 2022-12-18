@@ -36,7 +36,7 @@ namespace ClassTeacher_Assist
 
             if (skip is null)
             {
-                MessageBox.Show("Ви не обрали учня");
+                MessageBox.Show("Ви не обрали пропуск");
                 return;
             }
 

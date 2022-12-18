@@ -128,12 +128,14 @@ namespace ClassTeacher_Assist
                     List<Grade> gradesOfClass = new();
                     if (SelfClassRadioButton.IsChecked == true)
                     {
-                        gradesOfClass = db.Grades.AsNoTracking().Include(grade => grade.Student).ThenInclude(student => student.Class).Include(grade => grade.Teacher).ThenInclude(teacher => teacher.Subject).AsNoTracking()
+                        gradesOfClass = db.Grades.AsNoTracking().Include(grade => grade.Student).ThenInclude(student => student.Class)
+                            .Include(grade => grade.Teacher).ThenInclude(teacher => teacher.Subject).AsNoTracking()
                         .Where(grade => grade.Student.ClassId == currentTeacher.Class.ClassId).ToList();
                     }
                     else if (AllClassesRadioButton.IsChecked == true)
                     {
-                        gradesOfClass = db.Grades.AsNoTracking().Include(grade => grade.Student).ThenInclude(student => student.Class).Include(grade => grade.Teacher).ThenInclude(teacher => teacher.Subject).AsNoTracking().ToList();
+                        gradesOfClass = db.Grades.AsNoTracking().Include(grade => grade.Student).ThenInclude(student => student.Class)
+                            .Include(grade => grade.Teacher).ThenInclude(teacher => teacher.Subject).AsNoTracking().ToList();
                     }
                     FillDataGridWith<Grade>(columns[selection], gradesOfClass, MainDataGrid);
                     CurrentTableTextBox.Text = "Оцінки";
@@ -142,11 +144,14 @@ namespace ClassTeacher_Assist
                     List <Skip> skipsOfClass = new();
                     if (SelfClassRadioButton.IsChecked == true)
                     {
-                        skipsOfClass = db.Skips.AsNoTracking().Include(skip => skip.Student).ThenInclude(student => student.Class).Include(skip => skip.Teacher).AsNoTracking().Where(skip => skip.Student.ClassId == currentTeacher.Class.ClassId).ToList();
+                        skipsOfClass = db.Skips.AsNoTracking().Include(skip => skip.Student).ThenInclude(student => student.Class)
+                            .Include(skip => skip.Teacher).AsNoTracking()
+                            .Where(skip => skip.Student.ClassId == currentTeacher.Class.ClassId).ToList();
                     }
                     else if (AllClassesRadioButton.IsChecked == true)
                     {
-                        skipsOfClass = db.Skips.AsNoTracking().Include(skip => skip.Student).ThenInclude(student => student.Class).Include(skip => skip.Teacher).AsNoTracking().ToList();
+                        skipsOfClass = db.Skips.AsNoTracking().Include(skip => skip.Student).ThenInclude(student => student.Class)
+                            .Include(skip => skip.Teacher).AsNoTracking().ToList();
                     }
                     FillDataGridWith<Skip>(columns[selection], skipsOfClass, MainDataGrid);
                     CurrentTableTextBox.Text = "Пропуски";
@@ -156,6 +161,20 @@ namespace ClassTeacher_Assist
 
                     var allTeachers = db.Teachers.AsNoTracking().Include(teacher => teacher.Subject).AsNoTracking().ToList();
                     FillDataGridWith<Teacher>(columns[selection], allTeachers, MainDataGrid);;
+                    CurrentTableTextBox.Text = "Усі вчителі";
+                    break;
+                case "Усі предмети":
+                    AllClassesRadioButton.IsChecked = true;
+
+                    var allSubjects = db.Subjects.AsNoTracking().ToList();
+                    FillDataGridWith<Subject>(columns[selection], allSubjects, MainDataGrid); ;
+                    CurrentTableTextBox.Text = "Усі вчителі";
+                    break;
+                case "Усі класи":
+                    AllClassesRadioButton.IsChecked = true;
+
+                    var allClasses = db.Classes.AsNoTracking().Include(c => c.Teacher).AsNoTracking().ToList();
+                    FillDataGridWith<Class>(columns[selection], allClasses, MainDataGrid); ;
                     CurrentTableTextBox.Text = "Усі вчителі";
                     break;
             }
@@ -226,6 +245,19 @@ namespace ClassTeacher_Assist
                     new DataGridTextColumn() { Binding = new Binding("Address"), Header = "Адреса"},
                     new DataGridTextColumn() { Binding = new Binding("Email"), Header = "Ел. пошта"},
                     new DataGridTextColumn() { Binding = new Binding("Subject.Code"), Header = "Предмет"},
+                }
+            },
+            { "Усі предмети", new List<DataGridTextColumn>()
+                {
+                    new DataGridTextColumn() { Binding = new Binding("Name"), Header = "Назва" },
+                    new DataGridTextColumn() { Binding = new Binding("Code"), Header = "Код" }
+                }
+            },
+            { "Усі класи", new List<DataGridTextColumn>()
+                {
+                    new DataGridTextColumn() { Binding = new Binding("ClassCode"), Header = "Код класу" },
+                    new DataGridTextColumn() { Binding = new Binding("StudentsNumber"), Header = "Кілкькість учнів" },
+                    new DataGridTextColumn() { Binding = new Binding("Teacher.FullName"), Header = "ПІБ класного керівника" },
                 }
             }
         };
@@ -313,6 +345,27 @@ namespace ClassTeacher_Assist
         {
             var window = new DeleteClassWindow(currentTeacher);
             window.ShowDialog();
+        }
+
+        private void AddSubjectButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new AddSubjectWindow();
+            window.ShowDialog();
+            TablesComboBox_SelectionChanged(null, null);
+        }
+
+        private void DeleteSubjectButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new DeleteSubjectWindow();
+            window.ShowDialog();
+            TablesComboBox_SelectionChanged(null, null);
+        }
+
+        private void EditSubjectButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new EditSubjectWindow();
+            window.ShowDialog();
+            TablesComboBox_SelectionChanged(null, null);
         }
     }
 }
