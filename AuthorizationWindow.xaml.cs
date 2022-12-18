@@ -22,6 +22,7 @@ namespace ClassTeacher_Assist
     /// </summary>
     public partial class AuthorizationWindow : Window
     {
+        
         static Teacher? currentUser;
 
         private BindingList<Teacher> teachers;
@@ -30,9 +31,10 @@ namespace ClassTeacher_Assist
         {
             get 
             {
-                var db = new PostgresContext();
-                return new BindingList<Teacher>(db.Teachers.AsNoTracking().Include(t => t.Class)
-                    .Include(t => t.Subject).ToList()); 
+                PostgresContext db = new PostgresContext();
+                return new BindingList<Teacher>(db.Teachers.AsNoTracking()
+                    .Include(t => t.Class).AsNoTracking()
+                    .Include(t => t.Subject).AsNoTracking().ToList()); 
             }
             set { teachers = value; }
         }
@@ -50,9 +52,10 @@ namespace ClassTeacher_Assist
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            PostgresContext db = new PostgresContext();
             currentUser = TeacherComboBox.SelectedItem as Teacher;
-
-            if(currentUser is null)
+            db.Teachers.Entry(currentUser).State = EntityState.Detached;
+            if (currentUser is null)
             {
                 MessageBox.Show("Для входу оберіть себе зі списку вчителів або додайте нового вчителя");
                 return;

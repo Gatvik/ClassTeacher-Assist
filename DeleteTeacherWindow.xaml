@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:ClassTeacher_Assist"
         d:DataContext="{d:DesignInstance Type=local:DeleteTeacherWindow}"
         mc:Ignorable="d"
-        Title="DeleteTeacherWindow" Height="100" Width="400">
-    <Grid Background="#B6B6B6" Height="85" Width="400">
+        Title="DeleteTeacherWindow" Height="100" Width="350">
+    <Grid Background="#B6B6B6" Height="85" Width="350">
         <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Видалити свій акаунт"/>
-        
-        <Button x:Name="DeleteTeacherButton" Content="Видалити" Background="#B14242" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Width="200" Height="30" FontSize="16" Cursor="Hand" Click="DeleteTeacherButton_Click"/>
+
+        <Button x:Name="DeleteTeacherButton" Content="Видалити" Background="#B14242" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" Width="200" Height="30" FontSize="16" Cursor="Hand" Click="DeleteTeacherButton_Click"/>
     </Grid>
 </Window>

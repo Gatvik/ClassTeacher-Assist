@@ -8,6 +8,7 @@ public partial class PostgresContext : DbContext
 {
     public PostgresContext()
     {
+        
     }
 
     public PostgresContext(DbContextOptions<PostgresContext> options)
@@ -29,7 +30,10 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<Teaching> Teachings { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=evalone19200319;Include Error Detail=true");
+    {
+        optionsBuilder.UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=evalone19200319;Include Error Detail=true");
+        optionsBuilder.EnableSensitiveDataLogging(true);
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

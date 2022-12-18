@@ -32,7 +32,6 @@ public partial class Teacher
 
     public virtual Subject Subject { get; set; } = null!;
 
-    //public virtual ICollection<Class> Classes { get; } = new List<Class>();
     [NotMapped]
     public string FullNameAndClass { get { return $"{LastName} {FirstName} {Patronymic} {Common.GetTeachersClassCode(TeacherId)}"; } }
     public virtual ICollection<Teaching> Teachings { get; } = new List<Teaching>();

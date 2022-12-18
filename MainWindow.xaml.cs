@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using ClassTeacher_Assist.Models;
 using Microsoft.EntityFrameworkCore;
+using static System.Windows.Forms.Application;
 
 namespace ClassTeacher_Assist
 {
@@ -53,8 +54,9 @@ namespace ClassTeacher_Assist
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
+            //System.Windows.Forms.Application
+            Restart();
             Application.Current.Shutdown();
-            System.Diagnostics.Process.Start(Environment.GetCommandLineArgs()[0]);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -110,13 +112,13 @@ namespace ClassTeacher_Assist
                     List<Teaching> teachersOfClass = new();
                     if (SelfClassRadioButton.IsChecked == true)
                     {
-                        teachersOfClass = db.Teachings.Include(teaching => teaching.Teacher).ThenInclude(teacher => teacher.Subject).Include(teaching => teaching.Class)
+                        teachersOfClass = db.Teachings.AsNoTracking().Include(teaching => teaching.Teacher).ThenInclude(teacher => teacher.Subject).AsNoTracking().Include(teaching => teaching.Class).AsNoTracking()
                         .Where(teaching => teaching.ClassId == currentTeacher.Class.ClassId).ToList();
                     }
                     else if (AllClassesRadioButton.IsChecked == true)
                     {
-                        teachersOfClass = db.Teachings.Include(teaching => teaching.Teacher).ThenInclude(teacher => teacher.Subject)
-                            .Include(teaching => teaching.Class).ToList();
+                        teachersOfClass = db.Teachings.AsNoTracking().Include(teaching => teaching.Teacher).ThenInclude(teacher => teacher.Subject).AsNoTracking()
+                            .Include(teaching => teaching.Class).AsNoTracking().ToList();
                     }
 
                     FillDataGridWith<Teaching>(columns[selection], teachersOfClass, MainDataGrid);
@@ -126,12 +128,12 @@ namespace ClassTeacher_Assist
                     List<Grade> gradesOfClass = new();
                     if (SelfClassRadioButton.IsChecked == true)
                     {
-                        gradesOfClass = db.Grades.Include(grade => grade.Student).ThenInclude(student => student.Class).Include(grade => grade.Teacher).ThenInclude(teacher => teacher.Subject)
+                        gradesOfClass = db.Grades.AsNoTracking().Include(grade => grade.Student).ThenInclude(student => student.Class).Include(grade => grade.Teacher).ThenInclude(teacher => teacher.Subject).AsNoTracking()
                         .Where(grade => grade.Student.ClassId == currentTeacher.Class.ClassId).ToList();
                     }
                     else if (AllClassesRadioButton.IsChecked == true)
                     {
-                        gradesOfClass = db.Grades.Include(grade => grade.Student).ThenInclude(student => student.Class).Include(grade => grade.Teacher).ThenInclude(teacher => teacher.Subject).ToList();
+                        gradesOfClass = db.Grades.AsNoTracking().Include(grade => grade.Student).ThenInclude(student => student.Class).Include(grade => grade.Teacher).ThenInclude(teacher => teacher.Subject).AsNoTracking().ToList();
                     }
                     FillDataGridWith<Grade>(columns[selection], gradesOfClass, MainDataGrid);
                     CurrentTableTextBox.Text = "Оцінки";
@@ -140,11 +142,11 @@ namespace ClassTeacher_Assist
                     List <Skip> skipsOfClass = new();
                     if (SelfClassRadioButton.IsChecked == true)
                     {
-                        skipsOfClass = db.Skips.Include(skip => skip.Student).ThenInclude(student => student.Class).Include(skip => skip.Teacher).Where(skip => skip.Student.ClassId == currentTeacher.Class.ClassId).ToList();
+                        skipsOfClass = db.Skips.AsNoTracking().Include(skip => skip.Student).ThenInclude(student => student.Class).Include(skip => skip.Teacher).AsNoTracking().Where(skip => skip.Student.ClassId == currentTeacher.Class.ClassId).ToList();
                     }
                     else if (AllClassesRadioButton.IsChecked == true)
                     {
-                        skipsOfClass = db.Skips.Include(skip => skip.Student).ThenInclude(student => student.Class).Include(skip => skip.Teacher).ToList();
+                        skipsOfClass = db.Skips.AsNoTracking().Include(skip => skip.Student).ThenInclude(student => student.Class).Include(skip => skip.Teacher).AsNoTracking().ToList();
                     }
                     FillDataGridWith<Skip>(columns[selection], skipsOfClass, MainDataGrid);
                     CurrentTableTextBox.Text = "Пропуски";
@@ -152,7 +154,7 @@ namespace ClassTeacher_Assist
                 case "Усі вчителі":
                     AllClassesRadioButton.IsChecked = true;
 
-                    var allTeachers = db.Teachers.Include(teacher => teacher.Subject).ToList();
+                    var allTeachers = db.Teachers.AsNoTracking().Include(teacher => teacher.Subject).AsNoTracking().ToList();
                     FillDataGridWith<Teacher>(columns[selection], allTeachers, MainDataGrid);;
                     CurrentTableTextBox.Text = "Усі вчителі";
                     break;

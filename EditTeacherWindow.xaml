@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:ClassTeacher_Assist"
         d:DataContext="{d:DesignInstance Type=local:EditTeacherWindow}"
         mc:Ignorable="d"
-        Title="EditTeacherWindow" Height="645" Width="300" Loaded="Window_Loaded">
-    <Grid Background="#B6B6B6" Height="630" Width="300">
+        Title="EditTeacherWindow" Height="585" Width="300" Loaded="Window_Loaded">
+    <Grid Background="#B6B6B6" Height="570" Width="300">
 
-        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Предмет" Margin="0,73,0,0"/>
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Предмет" Margin="0,2,0,0"/>
         <ComboBox ItemsSource="{Binding Path = Subjects, RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"
-            x:Name="SubjectsComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0" Width="200" Height="30" FontSize="16">
+            x:Name="SubjectsComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,29,0,0" Width="200" Height="30" FontSize="16">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path = Name}"/>
@@ -19,30 +19,30 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Ім'я" Margin="0,140,0,0"/>
-        <TextBox x:Name="NameTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,165,0,0" Width="200" Height="30" FontSize="16"/>
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Ім'я" Margin="0,69,0,0"/>
+        <TextBox x:Name="NameTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,94,0,0" Width="200" Height="30" FontSize="16"/>
 
-        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Прізвище" Margin="0,200,0,0"/>
-        <TextBox x:Name="SurnameTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,225,0,0" Width="200" Height="30" FontSize="16"/>
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Прізвище" Margin="0,129,0,0"/>
+        <TextBox x:Name="SurnameTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,154,0,0" Width="200" Height="30" FontSize="16"/>
 
-        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="По батькові" Margin="0,260,0,0"/>
-        <TextBox x:Name="PatronymicTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,285,0,0" Width="200" Height="30" FontSize="16"/>
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="По батькові" Margin="0,189,0,0"/>
+        <TextBox x:Name="PatronymicTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,214,0,0" Width="200" Height="30" FontSize="16"/>
 
-        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Стать" Margin="0,320,0,0"/>
-        <ComboBox x:Name="GenderComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,345,0,0" Width="200" Height="30" FontSize="16">
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Стать" Margin="0,249,0,0"/>
+        <ComboBox x:Name="GenderComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,274,0,0" Width="200" Height="30" FontSize="16">
             <Label FontSize="16" Cursor="Hand" Content="Чоловік"/>
             <Label FontSize="16" Cursor="Hand" Content="Жінка"/>
         </ComboBox>
 
-        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Номер телефону" Margin="0,380,0,0"/>
-        <TextBox x:Name="PhoneNumberTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Height="30" FontSize="16" Margin="0,410,0,0"/>
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Номер телефону" Margin="0,309,0,0"/>
+        <TextBox x:Name="PhoneNumberTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Height="30" FontSize="16" Margin="0,339,0,0"/>
 
-        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Адреса" Margin="0,440,0,0"/>
-        <TextBox x:Name="AddressTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,465,0,0" Width="200" Height="30" FontSize="16"/>
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Адреса" Margin="0,369,0,0"/>
+        <TextBox x:Name="AddressTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,394,0,0" Width="200" Height="30" FontSize="16"/>
 
-        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Електронна пошта" Margin="0,500,0,0"/>
-        <TextBox x:Name="EmailTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,525,0,0" Width="200" Height="30" FontSize="16"/>
+        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Електронна пошта" Margin="0,429,0,0"/>
+        <TextBox x:Name="EmailTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,454,0,0" Width="200" Height="30" FontSize="16"/>
 
-        <Button x:Name="EditTeacherButton" Content="Змінити" Background="#7CAED2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,575,0,0" Width="200" Height="30" FontSize="16" Cursor="Hand" Click="EditTeacherButton_Click"/>
+        <Button x:Name="EditTeacherButton" Content="Змінити" Background="#7CAED2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,504,0,0" Width="200" Height="30" FontSize="16" Cursor="Hand" Click="EditTeacherButton_Click"/>
     </Grid>
 </Window>

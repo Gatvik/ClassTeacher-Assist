@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Windows.Forms.Application;
 
 namespace ClassTeacher_Assist
 {
@@ -35,6 +36,8 @@ namespace ClassTeacher_Assist
             db.Teachers.Remove(teacher);
             db.SaveChanges();
             MessageBox.Show("Ваш обліковий запис було видалено");
+            //System.Windows.Forms.Application
+            Restart();
             Application.Current.Shutdown();
         }
     }
