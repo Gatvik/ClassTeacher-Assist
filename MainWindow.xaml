@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClassTeacher_Assist"
         mc:Ignorable="d"
-        Title="ClassTeacher Assist" Height="587" Width="1000" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
-    <Grid Height="570" Width="1000" Background="#B6B6B6">
+        Title="ClassTeacher Assist" Height="615" Width="1000" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid Height="600" Width="1000" Background="#B6B6B6">
         <TextBlock 
             x:Name="InfoTextBox"
             HorizontalAlignment="Center" VerticalAlignment="Top" 
@@ -24,21 +24,21 @@
         <Button x:Name="QuitButton"
             Background="#B14242"
             Content="Вийти з системи" FontSize="16" 
-            HorizontalAlignment="Right" Margin="0,20,40,490"
+            HorizontalAlignment="Right" Margin="0,12,30,536"
             Width="180" Cursor="Hand" Click="QuitButton_Click"/>
         <DataGrid 
-                  HorizontalAlignment="Center"
+                  HorizontalAlignment="Left"
                   x:Name="MainDataGrid"
                   IsReadOnly="True"
                   Width="940" Height="250" Background="#D9D9D9" 
-                  Margin="15,111,15,189"/>
+                  Margin="20,116,0,234"/>
         <TextBlock 
-            HorizontalAlignment="Center" VerticalAlignment="Center" 
-            Margin="0,220,0,0"
+            HorizontalAlignment="Center" VerticalAlignment="Top" 
+            Margin="0,375,0,0"
             FontSize="20" TextAlignment="Center">
             Що відображати
         </TextBlock>
-        <ComboBox FontSize="16" x:Name="TablesComboBox" HorizontalAlignment="Center" Margin="0,0,0,120" VerticalAlignment="Bottom" Width="152" SelectionChanged="TablesComboBox_SelectionChanged">
+        <ComboBox FontSize="16" x:Name="TablesComboBox" HorizontalAlignment="Center" Margin="0,408,0,0" VerticalAlignment="Top" Width="152" SelectionChanged="TablesComboBox_SelectionChanged">
             <ComboBoxItem IsSelected="True">
                 Учні
             </ComboBoxItem>
@@ -56,64 +56,64 @@
             </ComboBoxItem>
         </ComboBox>
 
-        <RadioButton IsChecked="True" x:Name="SelfClassRadioButton" GroupName="Filtering" VerticalContentAlignment="Center" FontSize="20" Content="Ваш клас" HorizontalAlignment="Center" Margin="0,0,10,95" VerticalAlignment="Bottom" Checked="Filtering_Changed"/>
-        <RadioButton x:Name="AllClassesRadioButton" GroupName="Filtering" VerticalContentAlignment="Center" FontSize="20" Content="Усі класи" HorizontalAlignment="Center" Margin="0,0,9,75" VerticalAlignment="Bottom" Checked="Filtering_Changed"/>
+        <RadioButton IsChecked="True" x:Name="SelfClassRadioButton" GroupName="Filtering" VerticalContentAlignment="Center" FontSize="20" Content="Ваш клас" HorizontalAlignment="Left" Margin="444,0,0,134" VerticalAlignment="Bottom" Checked="Filtering_Changed"/>
+        <RadioButton x:Name="AllClassesRadioButton" GroupName="Filtering" VerticalContentAlignment="Center" FontSize="20" Content="Усі класи" HorizontalAlignment="Left" Margin="445,0,0,111" VerticalAlignment="Bottom" Checked="Filtering_Changed"/>
 
         <TextBlock 
-            HorizontalAlignment="Left" VerticalAlignment="Center" 
-            Margin="35,220,0,0"
+            HorizontalAlignment="Left" VerticalAlignment="Top" 
+            Margin="35,370,0,0"
             FontSize="20" TextAlignment="Center">
             Учень
         </TextBlock>
-        <Button x:Name="AddStudentButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,280,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddStudentButton_Click"/>
-        <Button x:Name="DeleteStudentButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="45,280,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteStudentButton_Click"/>
-        <Button x:Name="EditStudentButton" Content="/" Background="#7CAED2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="75,280,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="EditStudentButton_Click"/>
+        <Button x:Name="AddStudentButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,400,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddStudentButton_Click"/>
+        <Button x:Name="DeleteStudentButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="45,400,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteStudentButton_Click"/>
+        <Button x:Name="EditStudentButton" Content="/" Background="#7CAED2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="75,400,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="EditStudentButton_Click"/>
 
         <TextBlock 
-            HorizontalAlignment="Left" VerticalAlignment="Center" 
-            Margin="150,220,0,0"
+            HorizontalAlignment="Left" VerticalAlignment="Top" 
+            Margin="130,370,0,0"
             FontSize="20" TextAlignment="Center">
             Вчитель (ви)
         </TextBlock>
-        <Button x:Name="DeleteTeacherButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="170,280,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteTeacherButton_Click"/>
-        <Button x:Name="EditTeacherButton" Content="/" Background="#7CAED2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="200,280,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="EditTeacherButton_Click"/>
+        <Button x:Name="DeleteTeacherButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="151,400,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteTeacherButton_Click"/>
+        <Button x:Name="EditTeacherButton" Content="/" Background="#7CAED2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="181,400,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="EditTeacherButton_Click"/>
 
         <TextBlock 
             HorizontalAlignment="Left" VerticalAlignment="Center" 
-            Margin="430,430,0,0"
+            Margin="20,460,0,0"
             FontSize="20" TextAlignment="Center">
             Ваш клас
         </TextBlock>
-        <Button x:Name="DeleteClassButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="455,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteTeacherButton_Click"/>
-        
-        
+        <Button x:Name="DeleteClassButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="45,520,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteClassButton_Click"/>
+
+
         <TextBlock 
             HorizontalAlignment="Left" VerticalAlignment="Center" 
-            Margin="20,430,0,0"
+            Margin="20,320,0,0"
             FontSize="20" TextAlignment="Center">
             Пропуск
         </TextBlock>
-        <Button x:Name="AddSkipButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="27,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddSkipButton_Click"/>
-        <Button x:Name="DeleteSkipButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="57,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteSkipButton_Click"/>
+        <Button x:Name="AddSkipButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="27,380,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddSkipButton_Click"/>
+        <Button x:Name="DeleteSkipButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="57,380,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteSkipButton_Click"/>
 
         <TextBlock 
             HorizontalAlignment="Left" VerticalAlignment="Center" 
-            Margin="150,430,0,0"
+            Margin="150,320,0,0"
             FontSize="20" TextAlignment="Center">
             Оцінка
         </TextBlock>
-        <Button x:Name="AddGradeButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="151,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddGradeButton_Click"/>
-        <Button x:Name="DeleteGradeButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="181,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteGradeButton_Click"/>
+        <Button x:Name="AddGradeButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="151,380,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddGradeButton_Click"/>
+        <Button x:Name="DeleteGradeButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="181,380,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteGradeButton_Click"/>
 
         <TextBlock 
             HorizontalAlignment="Left" VerticalAlignment="Center" 
-            Margin="270,430,0,0"
+            Margin="270,320,0,0"
             FontSize="20" TextAlignment="Center">
             Викладання
         </TextBlock>
-        <Button x:Name="AddTeachingButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="293,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddTeachingButton_Click"/>
-        <Button x:Name="DeleteTeachingButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="323,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteTeachingButton_Click"/>
-        
+        <Button x:Name="AddTeachingButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="293,380,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddTeachingButton_Click"/>
+        <Button x:Name="DeleteTeachingButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="323,380,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteTeachingButton_Click"/>
+
 
     </Grid>
 </Window>

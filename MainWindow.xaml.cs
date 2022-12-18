@@ -308,5 +308,11 @@ namespace ClassTeacher_Assist
             window.ShowDialog();
             TablesComboBox_SelectionChanged(null, null);
         }
+
+        private void DeleteClassButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new DeleteClassWindow(currentTeacher);
+            window.ShowDialog();
+        }
     }
 }
