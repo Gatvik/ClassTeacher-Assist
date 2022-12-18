@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -53,6 +54,7 @@ namespace ClassTeacher_Assist
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+            System.Diagnostics.Process.Start(Environment.GetCommandLineArgs()[0]);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClassTeacher_Assist"
         mc:Ignorable="d"
-        Title="ClassTeacher Assist" Height="567" Width="1000" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
-    <Grid Height="550" Width="1000" Background="#B6B6B6">
+        Title="ClassTeacher Assist" Height="587" Width="1000" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid Height="570" Width="1000" Background="#B6B6B6">
         <TextBlock 
             x:Name="InfoTextBox"
             HorizontalAlignment="Center" VerticalAlignment="Top" 
@@ -27,9 +27,10 @@
             HorizontalAlignment="Right" Margin="0,20,40,490"
             Width="180" Cursor="Hand" Click="QuitButton_Click"/>
         <DataGrid 
+                  HorizontalAlignment="Center"
                   x:Name="MainDataGrid"
                   IsReadOnly="True"
-                  Width="970" Height="250" Background="#D9D9D9" 
+                  Width="940" Height="250" Background="#D9D9D9" 
                   Margin="15,111,15,189"/>
         <TextBlock 
             HorizontalAlignment="Center" VerticalAlignment="Center" 
@@ -79,30 +80,39 @@
 
         <TextBlock 
             HorizontalAlignment="Left" VerticalAlignment="Center" 
-            Margin="20,370,0,0"
+            Margin="430,430,0,0"
+            FontSize="20" TextAlignment="Center">
+            Ваш клас
+        </TextBlock>
+        <Button x:Name="DeleteClassButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="455,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteTeacherButton_Click"/>
+        
+        
+        <TextBlock 
+            HorizontalAlignment="Left" VerticalAlignment="Center" 
+            Margin="20,430,0,0"
             FontSize="20" TextAlignment="Center">
             Пропуск
         </TextBlock>
-        <Button x:Name="AddSkipButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="27,430,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddSkipButton_Click"/>
-        <Button x:Name="DeleteSkipButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="57,430,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteSkipButton_Click"/>
+        <Button x:Name="AddSkipButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="27,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddSkipButton_Click"/>
+        <Button x:Name="DeleteSkipButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="57,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteSkipButton_Click"/>
 
         <TextBlock 
             HorizontalAlignment="Left" VerticalAlignment="Center" 
-            Margin="150,370,0,0"
+            Margin="150,430,0,0"
             FontSize="20" TextAlignment="Center">
             Оцінка
         </TextBlock>
-        <Button x:Name="AddGradeButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="151,430,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddGradeButton_Click"/>
-        <Button x:Name="DeleteGradeButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="181,430,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteGradeButton_Click"/>
+        <Button x:Name="AddGradeButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="151,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddGradeButton_Click"/>
+        <Button x:Name="DeleteGradeButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="181,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteGradeButton_Click"/>
 
         <TextBlock 
             HorizontalAlignment="Left" VerticalAlignment="Center" 
-            Margin="270,370,0,0"
+            Margin="270,430,0,0"
             FontSize="20" TextAlignment="Center">
             Викладання
         </TextBlock>
-        <Button x:Name="AddTeachingButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="293,430,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddTeachingButton_Click"/>
-        <Button x:Name="DeleteTeachingButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="323,430,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteTeachingButton_Click"/>
+        <Button x:Name="AddTeachingButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="293,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddTeachingButton_Click"/>
+        <Button x:Name="DeleteTeachingButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="323,490,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteTeachingButton_Click"/>
         
 
     </Grid>
