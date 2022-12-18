@@ -130,6 +130,6 @@
         <Button x:Name="AddTeachingButton" Content="+" Background="#7BF18E" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="293,380,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="AddTeachingButton_Click"/>
         <Button x:Name="DeleteTeachingButton" Content="-" Background="#B14242" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="323,380,0,0" Width="30" Height="30" FontSize="20" Cursor="Hand" Click="DeleteTeachingButton_Click"/>
 
-
+        <Button x:Name="CalcAverageButton" Content="Підрахувати середнє" Background="#855569" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,75" Width="210" Height="33" FontSize="20" Cursor="Hand" Click="CalcAverageButton_Click" />
     </Grid>
 </Window>

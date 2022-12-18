@@ -34,7 +34,6 @@ namespace ClassTeacher_Assist
 
             if(isAuthorized != true) 
             {
-                MessageBox.Show("Ви повинні авторизуватися для продовження!");
                 Close();
                 return;
             }
@@ -159,7 +158,7 @@ namespace ClassTeacher_Assist
                 case "Усі вчителі":
                     AllClassesRadioButton.IsChecked = true;
 
-                    var allTeachers = db.Teachers.AsNoTracking().Include(teacher => teacher.Subject).AsNoTracking().ToList();
+                    var allTeachers = db.Teachers.AsNoTracking().Include(t => t.Class).AsNoTracking().Include(teacher => teacher.Subject).AsNoTracking().ToList();
                     FillDataGridWith<Teacher>(columns[selection], allTeachers, MainDataGrid);;
                     CurrentTableTextBox.Text = "Усі вчителі";
                     break;
@@ -215,7 +214,7 @@ namespace ClassTeacher_Assist
                     new DataGridTextColumn() { Binding = new Binding("Teacher.FirstName"), Header = "Ім'я вчителя" },
                     new DataGridTextColumn() { Binding = new Binding("Teacher.LastName"), Header = "Прізвище вчителя" },
                     new DataGridTextColumn() { Binding = new Binding("Teacher.Patronymic"), Header = "По-батькові вчителя" },
-                    new DataGridTextColumn() { Binding = new Binding("Teacher.Subject.Code"), Header = "Предмет" },
+                    new DataGridTextColumn() { Binding = new Binding("Teacher.Subject.Name"), Header = "Предмет" },
                     new DataGridTextColumn() { Binding = new Binding("Value"), Header = "Бал" },
                     new DataGridTextColumn() { Binding = new Binding("ReceivingDateNormal"), Header = "Дата виставлення" },
                 } 
@@ -239,12 +238,12 @@ namespace ClassTeacher_Assist
                     new DataGridTextColumn() { Binding = new Binding("FirstName"), Header = "Ім'я" },
                     new DataGridTextColumn() { Binding = new Binding("LastName"), Header = "Прізвище" },
                     new DataGridTextColumn() { Binding = new Binding("Patronymic"), Header = "По-батькові" },
-                    //new DataGridTextColumn() { Binding = new Binding("Class.ClassCode"), Header = "Класний керівник класу" },
+                    new DataGridTextColumn() { Binding = new Binding("Class.ClassCode"), Header = "Класний керівник класу" },
                     new DataGridTextColumn() { Binding = new Binding("Gender"), Header = "Стать" },
                     new DataGridTextColumn() { Binding = new Binding("PhoneNumber"), Header = "Номер телефону" },
                     new DataGridTextColumn() { Binding = new Binding("Address"), Header = "Адреса"},
                     new DataGridTextColumn() { Binding = new Binding("Email"), Header = "Ел. пошта"},
-                    new DataGridTextColumn() { Binding = new Binding("Subject.Code"), Header = "Предмет"},
+                    new DataGridTextColumn() { Binding = new Binding("Subject.Name"), Header = "Предмет"},
                 }
             },
             { "Усі предмети", new List<DataGridTextColumn>()
@@ -366,6 +365,12 @@ namespace ClassTeacher_Assist
             var window = new EditSubjectWindow();
             window.ShowDialog();
             TablesComboBox_SelectionChanged(null, null);
+        }
+
+        private void CalcAverageButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new CalcAverageWindow(currentTeacher);
+            window.ShowDialog();
         }
     }
 }
