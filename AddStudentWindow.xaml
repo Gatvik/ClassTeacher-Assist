@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:ClassTeacher_Assist"
         d:DataContext="{d:DesignInstance Type=local:AddStudentWindow}"
         mc:Ignorable="d"
-        Title="AddStudentWindow" Height="540" Width="300" Loaded="Window_Loaded">
-    <Grid Background="#B6B6B6" Height="525" Width="300">
+        Title="AddStudentWindow" Height="560" Width="300" Loaded="Window_Loaded">
+    <Grid Background="#B6B6B6" Height="545" Width="300">
 
 
         <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Ім'я" Margin="0,3,0,0"/>
@@ -34,6 +34,11 @@
         <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Електронна пошта" Margin="0,363,0,0"/>
         <TextBox x:Name="EmailTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,388,0,0" Width="200" Height="30" FontSize="16"/>
 
-        <Button x:Name="AddClassButton" Content="Додати" Background="#7BF18E" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,438,0,0" Width="200" Height="30" FontSize="16" Cursor="Hand" Click="AddClassButton_Click"/>
+        <CheckBox x:Name="GenerateApplicationCheckBox" 
+                  VerticalContentAlignment="Center"
+                  HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="16" 
+                  Margin="0,0,0,90" Content="Генерувати заяву?"/>
+
+        <Button x:Name="AddClassButton" Content="Додати" Background="#7BF18E" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,468,0,0" Width="200" Height="30" FontSize="16" Cursor="Hand" Click="AddClassButton_Click"/>
     </Grid>
 </Window>

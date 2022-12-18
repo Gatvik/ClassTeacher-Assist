@@ -39,5 +39,61 @@ namespace ClassTeacher_Assist
             this.currentTeacher = currentTeacher;
             InitializeComponent();
         }
+
+        private void CalcAverageButton_Click(object sender, RoutedEventArgs e)
+        {
+            Student? student = StudentComboBox.SelectedItem as Student;
+            DateTime? fromDate = FromDatePicker.SelectedDate;
+            DateTime? toDate = ToDatePicker.SelectedDate;
+            Dictionary<string, int> subjectToGradePairs = new Dictionary<string, int>();
+            Dictionary<string, int> subjectToAppearencePairs = new Dictionary<string, int>();
+
+            if (student is null || fromDate is null || toDate is null)
+            {
+                MessageBox.Show("Усі поля мають бути заповнені");
+                return;
+            }
+
+            if (fromDate > toDate)
+            {
+                MessageBox.Show("Початкова дата не може бути більше за кінцеву дату");
+                return;
+            }
+
+            var studentGrades = db.Grades.AsNoTracking().Include(g => g.Student).AsNoTracking()
+                .Include(g => g.Teacher).ThenInclude(t => t.Subject).AsNoTracking()
+                .Where(g => g.StudentId == student.StudentId && g.ReceivingDate >= fromDate || g.ReceivingDate <= toDate)
+                .ToList();
+
+            foreach (var grade in studentGrades)
+            {
+                string subjectName = grade.Teacher.Subject.Name;
+                if (!subjectToGradePairs.TryGetValue(subjectName, out int gradeValue))
+                {
+                    subjectToGradePairs[subjectName] = 0;
+                    subjectToAppearencePairs[subjectName] = 0;
+                }
+                subjectToGradePairs[subjectName] += grade.Value;
+                subjectToAppearencePairs[subjectName] += 1;
+            }
+
+            for(int i = 0; i < subjectToGradePairs.Count; i++)
+            {
+                var subjToGradeKV = subjectToGradePairs.ElementAt(i);
+                var subjToAppearKV = subjectToAppearencePairs.ElementAt(i);
+                double grade = Math.Round((double)subjToGradeKV.Value / subjToAppearKV.Value, 1);
+                ResultTextBox.Text += $"{subjToGradeKV.Key}: {grade} бал(-ів){(grade < 3 ? " !! УВАГА !!" : "")}\n";
+            }
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(Students.Count == 0)
+            {
+                MessageBox.Show("У вашому класі немає учнів");
+                Close();
+            }
+        }
     }
 }

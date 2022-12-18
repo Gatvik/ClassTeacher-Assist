@@ -1,18 +1,11 @@
 ﻿using ClassTeacher_Assist.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ClassTeacher_Assist
 {
@@ -93,19 +86,37 @@ namespace ClassTeacher_Assist
             var updatedClass = db.Classes.Where(class_ => class_.ClassId == classId).First();
             updatedClass.StudentsNumber = updatedClass.StudentsNumber + 1;
 
+            if (GenerateApplicationCheckBox.IsChecked == true)
+            {
+                CreateApplication(newStudent, updatedClass);
+            }
 
-            try
+            db.Students.Add(newStudent);
+            db.Classes.Update(updatedClass);
+            db.SaveChanges();
+            MessageBox.Show("Учня було успішно додано");
+            Close();
+        }
+
+        private void CreateApplication(Student student, Class class_)
+        {
+            PostgresContext db = new PostgresContext();
+            var word = new WordWrite(@"E:\Projects\C#\ClassTeacher Assist\student_enroll.docx");
+            class_ = db.Classes.AsNoTracking().Include(c => c.Teacher).AsNoTracking()
+                .Where(c => c.ClassId == class_.ClassId).First();
+            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>()
             {
-                db.Students.Add(newStudent);
-                db.Classes.Update(updatedClass);
-                db.SaveChanges();
-                MessageBox.Show("Учня було успішно додано");
-                Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Виникла помилка при додаванні учня \n Текст помилки: {ex.Message}");
-            }
+                {"<TEACHER_SURNAME>", class_.Teacher.LastName },
+                {"<TEACHER_FIRSTNAME>", class_.Teacher.FirstName },
+                {"<TEACHER_PATRONYMIC>", class_.Teacher.Patronymic },
+                {"<STUDENT_SURNAME>", student.LastName },
+                {"<STUDENT_FIRSTNAME>", student.FirstName },
+                {"<STUDENT_PATRONYMIC>", student.Patronymic },
+                {"<CLASS_CODE>", class_.ClassCode },
+                {"<DATE>", DateTime.Now.ToString("dd.MM.yyyy") },
+            };
+            word.Process(keyValuePairs);
         }
     }
+
 }
