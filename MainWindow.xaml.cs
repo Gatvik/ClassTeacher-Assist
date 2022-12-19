@@ -75,15 +75,14 @@ namespace ClassTeacher_Assist
         {
             ChangeDataGrid();
         }
-
-        //Костиль. Чомусь метод викликається навіть до загрузки вікна, тому лише на другій і далі
-        //загрузці будемо викликати його
-        bool isFirst = true;
         private void Filtering_Changed(object sender, RoutedEventArgs e)
         {
-            if (!isFirst) ChangeDataGrid();
-            isFirst = false;
-
+            ChangeDataGrid();
+        }
+        
+        private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ChangeDataGrid();
         }
 
         private void ChangeDataGrid()
@@ -95,17 +94,24 @@ namespace ClassTeacher_Assist
             switch (selection)
             {
                 case "Учні":
-                    List<Student> studentsOfClass = new();
-                    if(SelfClassRadioButton.IsChecked == true)
+                    try
                     {
-                        studentsOfClass = db.Students.AsNoTracking().Include(s => s.Class).Where(st => st.ClassId == currentTeacher.Class.ClassId).ToList();
+                        List<Student> studentsOfClass = new();
+
+                        if (SelfClassRadioButton.IsChecked == true) 
+                            studentsOfClass = db.Students.AsNoTracking().Include(s => s.Class).Where(st => st.ClassId == currentTeacher.Class.ClassId).ToList();
+                        else if (AllClassesRadioButton.IsChecked == true)
+                            studentsOfClass = db.Students.AsNoTracking().Include(s => s.Class).ToList();
+
+                        if (SortAscRadioButton.IsChecked == true)
+                            studentsOfClass = studentsOfClass.OrderBy(st => st.LastName).ToList();
+                        else if (SortDescRadioButton.IsChecked == true)
+                            studentsOfClass = studentsOfClass.OrderByDescending(st => st.LastName).ToList();
+
+                        FillDataGridWith<Student>(columns[selection], studentsOfClass, MainDataGrid);
+                        CurrentTableTextBox.Text = "Учні";
                     }
-                    else if (AllClassesRadioButton.IsChecked == true)
-                    {
-                        studentsOfClass = db.Students.AsNoTracking().Include(s => s.Class).ToList();
-                    }
-                    FillDataGridWith<Student>(columns[selection], studentsOfClass, MainDataGrid);
-                    CurrentTableTextBox.Text = "Учні";
+                    catch {}
                     break;
                 case "Викладання":
                     List<Teaching> teachersOfClass = new();
@@ -119,6 +125,11 @@ namespace ClassTeacher_Assist
                         teachersOfClass = db.Teachings.AsNoTracking().Include(teaching => teaching.Teacher).ThenInclude(teacher => teacher.Subject).AsNoTracking()
                             .Include(teaching => teaching.Class).AsNoTracking().ToList();
                     }
+
+                    if (SortAscRadioButton.IsChecked == true)
+                        teachersOfClass = teachersOfClass.OrderBy(t => t.Teacher.LastName).ToList();
+                    else if (SortDescRadioButton.IsChecked == true)
+                        teachersOfClass = teachersOfClass.OrderByDescending(t => t.Teacher.LastName).ToList();
 
                     FillDataGridWith<Teaching>(columns[selection], teachersOfClass, MainDataGrid);
                     CurrentTableTextBox.Text = "Викладання";
@@ -136,6 +147,12 @@ namespace ClassTeacher_Assist
                         gradesOfClass = db.Grades.AsNoTracking().Include(grade => grade.Student).ThenInclude(student => student.Class)
                             .Include(grade => grade.Teacher).ThenInclude(teacher => teacher.Subject).AsNoTracking().ToList();
                     }
+
+                    if (SortAscRadioButton.IsChecked == true)
+                        gradesOfClass = gradesOfClass.OrderBy(g => g.Value).ToList();
+                    else if (SortDescRadioButton.IsChecked == true)
+                        gradesOfClass = gradesOfClass.OrderByDescending(g => g.Value).ToList();
+
                     FillDataGridWith<Grade>(columns[selection], gradesOfClass, MainDataGrid);
                     CurrentTableTextBox.Text = "Оцінки";
                     break;
@@ -159,6 +176,12 @@ namespace ClassTeacher_Assist
                     AllClassesRadioButton.IsChecked = true;
 
                     var allTeachers = db.Teachers.AsNoTracking().Include(t => t.Class).AsNoTracking().Include(teacher => teacher.Subject).AsNoTracking().ToList();
+
+                    if (SortAscRadioButton.IsChecked == true)
+                        allTeachers = allTeachers.OrderBy(t => t.LastName).ToList();
+                    else if (SortDescRadioButton.IsChecked == true)
+                        allTeachers = allTeachers.OrderByDescending(t => t.LastName).ToList();
+
                     FillDataGridWith<Teacher>(columns[selection], allTeachers, MainDataGrid);;
                     CurrentTableTextBox.Text = "Усі вчителі";
                     break;
@@ -173,6 +196,12 @@ namespace ClassTeacher_Assist
                     AllClassesRadioButton.IsChecked = true;
 
                     var allClasses = db.Classes.AsNoTracking().Include(c => c.Teacher).AsNoTracking().ToList();
+
+                    if (SortAscRadioButton.IsChecked == true)
+                        allClasses = allClasses.OrderBy(c => c.StudentsNumber).ToList();
+                    else if (SortDescRadioButton.IsChecked == true)
+                        allClasses = allClasses.OrderByDescending(c => c.StudentsNumber).ToList();
+
                     FillDataGridWith<Class>(columns[selection], allClasses, MainDataGrid); ;
                     CurrentTableTextBox.Text = "Усі вчителі";
                     break;
@@ -372,5 +401,7 @@ namespace ClassTeacher_Assist
             var window = new CalcAverageWindow(currentTeacher);
             window.ShowDialog();
         }
+
+        
     }
 }
