@@ -30,5 +30,5 @@ public partial class Student
 
     public virtual ICollection<Skip> Skips { get; } = new List<Skip>();
     [NotMapped]
-    public string FullName { get { return $"{LastName} {FirstName} {Patronymic}"; } }
+    public string FullName { get { return $"{LastName} {FirstName} {Patronymic}"; };
 }

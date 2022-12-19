@@ -287,6 +287,16 @@ namespace ClassTeacher_Assist
                     new DataGridTextColumn() { Binding = new Binding("StudentsNumber"), Header = "Кілкькість учнів" },
                     new DataGridTextColumn() { Binding = new Binding("Teacher.FullName"), Header = "ПІБ класного керівника" },
                 }
+            },
+            {
+                "Кількість пропусків студента", new List<DataGridTextColumn>()
+                {
+                    new DataGridTextColumn() { Binding = new Binding("LastName"), Header = "Прізвище" },
+                    new DataGridTextColumn() { Binding = new Binding("FirstName"), Header = "Ім'я" },
+                    new DataGridTextColumn() { Binding = new Binding("Patronymic"), Header = "По-батькові" },
+                    new DataGridTextColumn() { Binding = new Binding("Class.ClassCode"), Header = "Клас" },
+                    new DataGridTextColumn() { Binding = new Binding("Skips.Count"), Header = "Кількість пропусків" },
+                }
             }
         };
 
@@ -402,6 +412,79 @@ namespace ClassTeacher_Assist
             window.ShowDialog();
         }
 
-        
+        private void FindStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            PostgresContext db = new PostgresContext();
+            string phoneNumber = NumberTextBox.Text;
+
+            Teacher? teacher = db.Teachers.AsNoTracking().Include(t => t.Subject).AsNoTracking().Include(t => t.Class).AsNoTracking()
+                .Where(t => t.PhoneNumber == phoneNumber).FirstOrDefault();
+            Student? student = db.Students.AsNoTracking().Include(s => s.Class).AsNoTracking()
+                .Where(s => s.PhoneNumber == phoneNumber).FirstOrDefault();
+
+            if (teacher is not null)
+                FillDataGridWith(columns["Усі вчителі"], new List<Teacher>() { teacher }, MainDataGrid);
+            else if (student is not null)
+                FillDataGridWith(columns["Учні"], new List<Student>() { student }, MainDataGrid);
+            else
+            {
+                MessageBox.Show("За вказаним номером телефону не було знайдено вчителя чи учня");
+                return;
+            }
+
+            TablesComboBox.SelectedIndex = -1;
+            CurrentTableTextBox.Text = "Пошук";
+        }
+
+        private void FindGradeByStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            PostgresContext db = new PostgresContext();
+            string lastName = LastNameTextBox.Text;
+
+            List<Grade> gradesOfStudent = db.Grades.AsNoTracking().Include(g => g.Student).ThenInclude(s => s.Class).AsNoTracking()
+                .Include(g => g.Teacher).ThenInclude(t => t.Subject).AsNoTracking()
+                .Where(g => g.Student.LastName == lastName).ToList();
+
+            if (gradesOfStudent.Count == 0)
+            {
+                MessageBox.Show("За вказаним прізвищем не було знайдено жодної оцінки");
+                return;
+            }
+
+            FillDataGridWith(columns["Оцінки"], gradesOfStudent, MainDataGrid);
+            TablesComboBox.SelectedIndex = -1;
+            CurrentTableTextBox.Text = "Пошук";
+        }
+
+        private void StatsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PostgresContext db = new PostgresContext();
+            string? selectedStat = ((ComboBoxItem)StatsComboBox.SelectedItem).Content.ToString();
+
+            if (selectedStat is null)
+                return;
+
+            switch (selectedStat)
+            {
+                case "Кількість пропусків за рік за учнями":
+                    var dateTimeNow = DateTime.Now;
+                    var startYear = dateTimeNow.Month >= 9 && dateTimeNow.Month <= 12 ? dateTimeNow.Year : dateTimeNow.Year - 1;
+                    var yearStartDate = new DateTime(startYear, 9, 1);
+                    var yearEndDate = new DateTime(startYear + 1, 5, 31);
+                    var skipsPerStudent = db.Students.AsNoTracking().Include(s => s.Skips).AsNoTracking()
+                        .Where(s => s.Skips.Where(skip => skip.ReceivingDate >= yearStartDate && skip.ReceivingDate <= yearEndDate)).ToList();
+
+                    if (skipsPerStudent.Count == 0)
+                    {
+                        MessageBox.Show("У базі немає оцінок");
+                        return;
+                    }
+
+                    FillDataGridWith<Student>(columns["Кількість пропусків студента"], skipsPerStudent, MainDataGrid);
+
+                    break;
+            }
+            
+        }
     }
 }
