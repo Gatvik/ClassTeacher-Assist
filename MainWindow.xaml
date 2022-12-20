@@ -156,6 +156,7 @@
 
         <Button x:Name="GetScorecardButton" Content="Оформити табель" Background="#855569" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="626,504,0,0" Width="210" Height="33" FontSize="20" Cursor="Hand" Click="GetScorecardButton_Click" />
         <Button x:Name="CalcAverageButton" Content="Підрахувати середнє" Background="#855569" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="626,547,0,0" Width="210" Height="33" FontSize="20" Cursor="Hand" Click="CalcAverageButton_Click" />
+        <Button x:Name="QueryEditButton" Content="Вікно запитів" Background="#855569" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="626,590,0,0" Width="210" Height="33" FontSize="20" Cursor="Hand" Click="QueryEditButton_Click"/>
 
         <TextBlock 
             HorizontalAlignment="Center" VerticalAlignment="Bottom" 

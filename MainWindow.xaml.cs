@@ -48,7 +48,9 @@ namespace ClassTeacher_Assist
         public void UpdateInfoTextBox()
         {
             PostgresContext db = new PostgresContext();
-            InfoTextBox.Text = $"Добрий день, {currentTeacher?.FirstName} \n Ваш клас: {currentTeacher.Class.ClassCode} Кількість учнів: {currentTeacher.Class.StudentsNumber}";
+            var teacher = db.Teachers.AsNoTracking().Include(t => t.Class).AsNoTracking().Include(t => t.Subject).AsNoTracking()
+                .Where(t => t.TeacherId == currentTeacher.TeacherId).FirstOrDefault();
+            InfoTextBox.Text = $"Добрий день, {teacher?.FirstName} \n Ваш клас: {teacher.Class.ClassCode} Кількість учнів: {teacher.Class.StudentsNumber}";
         }
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
@@ -549,6 +551,12 @@ namespace ClassTeacher_Assist
         private void GetScorecardButton_Click(object sender, RoutedEventArgs e)
         {
             var window = new GetScorecardWindow(currentTeacher);
+            window.ShowDialog();
+        }
+
+        private void QueryEditButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new QueryEditWindow();
             window.ShowDialog();
         }
     }

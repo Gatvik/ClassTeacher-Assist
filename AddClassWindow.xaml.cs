@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Windows.Forms.Application;
 
 namespace ClassTeacher_Assist
 {
@@ -67,7 +68,9 @@ namespace ClassTeacher_Assist
             db.Classes.Add(newClass);
             db.SaveChanges();
             MessageBox.Show("Клас було успішно додано");
-            Close();
+            //System.Windows.Forms.Application
+            Restart();
+            Application.Current.Shutdown();
 
         }
     }
