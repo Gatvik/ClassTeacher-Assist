@@ -54,12 +54,15 @@ namespace ClassTeacher_Assist
         {
             PostgresContext db = new PostgresContext();
             currentUser = TeacherComboBox.SelectedItem as Teacher;
-            db.Teachers.Entry(currentUser).State = EntityState.Detached;
+
             if (currentUser is null)
             {
                 MessageBox.Show("Для входу оберіть себе зі списку вчителів або додайте нового вчителя");
                 return;
             }
+
+            db.Teachers.Entry(currentUser).State = EntityState.Detached;
+            
 
             if(currentUser.Class is null)
             {

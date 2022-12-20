@@ -1,12 +1,12 @@
-﻿<Window x:Class="ClassTeacher_Assist.DeleteStudentWindow"
+﻿<Window x:Class="ClassTeacher_Assist.GetScorecardWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClassTeacher_Assist"
-        d:DataContext="{d:DesignInstance Type=local:DeleteStudentWindow}"
+        d:DataContext="{d:DesignInstance Type=local:GetScorecardWindow}"
         mc:Ignorable="d"
-        Title="DeleteStudentWindow" Height="200" Width="400" Loaded="Window_Loaded">
+        Title="GetScorecardWindow" Height="200" Width="400">
     <Grid Background="#B6B6B6" Height="185" Width="400">
         <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Учні"/>
         <ComboBox ItemsSource="{Binding Path = Students, RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"
@@ -17,6 +17,10 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button x:Name="DeleteStudentButton" Content="Видалити" Background="#B14242" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,30" Width="200" Height="30" FontSize="16" Cursor="Hand" Click="DeleteStudentButton_Click"/>
+
+        <RadioButton IsChecked="True" x:Name="SemesterRadioButton" GroupName="TimeSpanGroup" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" Content="За семестр" Margin="0,0,100,15"/>
+        <RadioButton x:Name="YearRadioButton" GroupName="TimeSpanGroup" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" Content="За рік" Margin="100,0,00,15"/>
+
+        <Button x:Name="GetScorecardButton" Content="Оформити табель" Background="#855569" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,30" Width="210" Height="33" FontSize="20" Cursor="Hand" Click="GetScorecardButton_Click" />
     </Grid>
 </Window>

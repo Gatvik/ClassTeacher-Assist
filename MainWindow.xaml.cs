@@ -310,8 +310,16 @@ namespace ClassTeacher_Assist
                     new DataGridTextColumn() { Binding = new Binding("Name"), Header = "Предмет" },
                     new DataGridTextColumn() { Binding = new Binding("Teachers.Count"), Header = "Кількість викладачів" },
                 }
+            },
+            {
+                "Найбільша кількість викладань", new List<DataGridTextColumn>()
+                {
+                    new DataGridTextColumn() { Binding = new Binding("ClassCode"), Header = "Клас" },
+                    new DataGridTextColumn() { Binding = new Binding("Teachings.Count"), Header = "Кількість викладань" },
+                }
             }
             
+
         };
 
         private void AddStudentButton_Click(object sender, RoutedEventArgs e)
@@ -481,10 +489,6 @@ namespace ClassTeacher_Assist
             switch (selectedStat)
             {
                 case "Кількість пропусків за учнями":
-                    //var dateTimeNow = DateTime.Now;
-                    //var startYear = dateTimeNow.Month >= 9 && dateTimeNow.Month <= 12 ? dateTimeNow.Year : dateTimeNow.Year - 1;
-                    //var yearStartDate = new DateTime(startYear, 9, 1);
-                    //var yearEndDate = new DateTime(startYear + 1, 5, 31);
                     var skipsPerStudent = db.Students.AsNoTracking().Include(s => s.Skips).AsNoTracking().Include(s => s.Class).ToList();
 
 
@@ -525,8 +529,27 @@ namespace ClassTeacher_Assist
                     FillDataGridWith<Subject>(columns["Найпопулярніщі предмети серед вчителів"], subjects, MainDataGrid);
 
                     break;
+
+                case "5 класів з найбільшою кількістю викладань":
+                    var classes = db.Classes.AsNoTracking().Include(c => c.Teachings).AsNoTracking()
+                        .OrderByDescending(c => c.Teachings.Count).Take(5).ToList();
+
+                    if (classes.Count == 0)
+                    {
+                        MessageBox.Show("У базі немає класів (що наврядчи можливо :/)");
+                        return;
+                    }
+
+                    FillDataGridWith<Class>(columns["Найбільша кількість викладань"], classes, MainDataGrid);
+                    break;
             }
             
+        }
+
+        private void GetScorecardButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new GetScorecardWindow(currentTeacher);
+            window.ShowDialog();
         }
     }
 }
