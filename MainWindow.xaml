@@ -164,8 +164,17 @@
         </TextBlock>
         <ComboBox FontSize="16" x:Name="StatsComboBox" HorizontalAlignment="Left" Margin="411,545,0,0" VerticalAlignment="Top" Width="152" SelectionChanged="StatsComboBox_SelectionChanged">
             <ComboBoxItem>
-                Кількість пропусків за рік за учнями
+                Кількість пропусків за учнями
+            </ComboBoxItem>
+            <ComboBoxItem>
+                Кращі 5 учнів за оцінками
+            </ComboBoxItem>
+            <ComboBoxItem>
+                5 найпоширеніших предметів серед вчителів
             </ComboBoxItem>
         </ComboBox>
+        <Rectangle HorizontalAlignment="Left" Height="119" Margin="396,371,0,0" Stroke="Black" VerticalAlignment="Top" Width="440"/>
+        <Rectangle HorizontalAlignment="Left" Height="218" Margin="10,371,0,0" Stroke="Black" VerticalAlignment="Top" Width="381"/>
+        <Rectangle HorizontalAlignment="Left" Height="263" Margin="841,372,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
     </Grid>
 </Window>

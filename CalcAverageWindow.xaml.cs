@@ -62,7 +62,7 @@ namespace ClassTeacher_Assist
 
             var studentGrades = db.Grades.AsNoTracking().Include(g => g.Student).AsNoTracking()
                 .Include(g => g.Teacher).ThenInclude(t => t.Subject).AsNoTracking()
-                .Where(g => g.StudentId == student.StudentId && g.ReceivingDate >= fromDate || g.ReceivingDate <= toDate)
+                .Where(g => (g.StudentId == student.StudentId) && (g.ReceivingDate >= fromDate) && (g.ReceivingDate <= toDate))
                 .ToList();
 
             foreach (var grade in studentGrades)
@@ -76,7 +76,7 @@ namespace ClassTeacher_Assist
                 subjectToGradePairs[subjectName] += grade.Value;
                 subjectToAppearencePairs[subjectName] += 1;
             }
-
+            ResultTextBox.Text = "";
             for(int i = 0; i < subjectToGradePairs.Count; i++)
             {
                 var subjToGradeKV = subjectToGradePairs.ElementAt(i);

@@ -79,17 +79,13 @@ namespace ClassTeacher_Assist
         {
             ChangeDataGrid();
         }
-        
-        private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ChangeDataGrid();
-        }
 
         private void ChangeDataGrid()
         {
             PostgresContext db = new PostgresContext();
             string? selection = (TablesComboBox.SelectedItem as ComboBoxItem)?.Content as string;
             if (selection is null) return;
+            //try { StatsComboBox.SelectedIndex = 0; } catch { }
 
             switch (selection)
             {
@@ -297,7 +293,25 @@ namespace ClassTeacher_Assist
                     new DataGridTextColumn() { Binding = new Binding("Class.ClassCode"), Header = "Клас" },
                     new DataGridTextColumn() { Binding = new Binding("Skips.Count"), Header = "Кількість пропусків" },
                 }
+            },
+            {
+                "Кращі учні за оцінками", new List<DataGridTextColumn>()
+                {
+                    new DataGridTextColumn() { Binding = new Binding("LastName"), Header = "Прізвище" },
+                    new DataGridTextColumn() { Binding = new Binding("FirstName"), Header = "Ім'я" },
+                    new DataGridTextColumn() { Binding = new Binding("Patronymic"), Header = "По-батькові" },
+                    new DataGridTextColumn() { Binding = new Binding("Class.ClassCode"), Header = "Клас" },
+                    new DataGridTextColumn() { Binding = new Binding("SumOfGrades"), Header = "Сума оцінок" },
+                }
+            },
+            {
+                "Найпопулярніщі предмети серед вчителів", new List<DataGridTextColumn>()
+                {
+                    new DataGridTextColumn() { Binding = new Binding("Name"), Header = "Предмет" },
+                    new DataGridTextColumn() { Binding = new Binding("Teachers.Count"), Header = "Кількість викладачів" },
+                }
             }
+            
         };
 
         private void AddStudentButton_Click(object sender, RoutedEventArgs e)
@@ -466,13 +480,13 @@ namespace ClassTeacher_Assist
 
             switch (selectedStat)
             {
-                case "Кількість пропусків за рік за учнями":
-                    var dateTimeNow = DateTime.Now;
-                    var startYear = dateTimeNow.Month >= 9 && dateTimeNow.Month <= 12 ? dateTimeNow.Year : dateTimeNow.Year - 1;
-                    var yearStartDate = new DateTime(startYear, 9, 1);
-                    var yearEndDate = new DateTime(startYear + 1, 5, 31);
-                    var skipsPerStudent = db.Students.AsNoTracking().Include(s => s.Skips).AsNoTracking()
-                        .Where(s => s.Skips.Where(skip => skip.ReceivingDate >= yearStartDate && skip.ReceivingDate <= yearEndDate)).ToList();
+                case "Кількість пропусків за учнями":
+                    //var dateTimeNow = DateTime.Now;
+                    //var startYear = dateTimeNow.Month >= 9 && dateTimeNow.Month <= 12 ? dateTimeNow.Year : dateTimeNow.Year - 1;
+                    //var yearStartDate = new DateTime(startYear, 9, 1);
+                    //var yearEndDate = new DateTime(startYear + 1, 5, 31);
+                    var skipsPerStudent = db.Students.AsNoTracking().Include(s => s.Skips).AsNoTracking().Include(s => s.Class).ToList();
+
 
                     if (skipsPerStudent.Count == 0)
                     {
@@ -481,6 +495,34 @@ namespace ClassTeacher_Assist
                     }
 
                     FillDataGridWith<Student>(columns["Кількість пропусків студента"], skipsPerStudent, MainDataGrid);
+                    CurrentTableTextBox.Text = "Статистика";
+                    break;
+                case "Кращі 5 учнів за оцінками":
+                    var students = db.Students.AsNoTracking().Include(s => s.Grades).AsNoTracking().Include(s => s.Class).AsNoTracking().ToList();
+
+                    if (students.Count == 0)
+                    {
+                        MessageBox.Show("У базі немає учнів");
+                        return;
+                    }
+
+                    students.ForEach(s => s.SumOfGrades = s.Grades.Sum(g => g.Value));
+                    students = students.OrderByDescending(s => s.SumOfGrades).Take(5).ToList();
+
+                    FillDataGridWith<Student>(columns["Кращі учні за оцінками"], students, MainDataGrid);
+                    CurrentTableTextBox.Text = "Статистика";
+                    break;
+                case "5 найпоширеніших предметів серед вчителів":
+                    var subjects = db.Subjects.AsNoTracking().Include(s => s.Teachers).AsNoTracking()
+                        .OrderByDescending(s => s.Teachers.Count).Take(5).ToList();
+
+                    if (subjects.Count == 0)
+                    {
+                        MessageBox.Show("У базі немає предметів (що наврядчи можливо :/)");
+                        return;
+                    }
+
+                    FillDataGridWith<Subject>(columns["Найпопулярніщі предмети серед вчителів"], subjects, MainDataGrid);
 
                     break;
             }
