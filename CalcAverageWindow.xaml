@@ -8,25 +8,16 @@
         mc:Ignorable="d"
         Title="CalcAverageWindow" Height="400" Width="400" Loaded="Window_Loaded">
     <Grid Background="#B6B6B6" Height="385" Width="400">
-        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Учень, якому підраховуємо"/>
-        <ComboBox ItemsSource="{Binding Path = Students, RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"
-            x:Name="StudentComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" Width="200" Height="30" FontSize="16">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Path = FullName}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
 
-        <Label FontSize="16" Margin="0, 65,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Дати"/>
+        <Label FontSize="16" Margin="0,7,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Content="Дати"/>
 
-        <Label FontSize="16" Margin="71,102,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="З"/>
-        <DatePicker x:Name="FromDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,102,0,0" Width="150" Height="30" FontSize="16"/>
+        <Label FontSize="16" Margin="129,44,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="З"/>
+        <DatePicker x:Name="FromDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="149,44,0,0" Width="150" Height="30" FontSize="16"/>
 
-        <Label FontSize="16" Margin="58,142,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="ПО"/>
-        <DatePicker x:Name="ToDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,142,0,0" Width="150" Height="30" FontSize="16"/>
+        <Label FontSize="16" Margin="116,84,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="ПО"/>
+        <DatePicker x:Name="ToDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="149,84,0,0" Width="150" Height="30" FontSize="16"/>
 
-        <Button x:Name="CalcAverageButton" FontSize="16" Background="#855569" Content="Підрахувати" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,115,45,0" Click="CalcAverageButton_Click"/>
+        <Button x:Name="CalcAverageButton" FontSize="16" Background="#855569" Content="Знайти боржників" Width="150" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,134,0,0" Click="CalcAverageButton_Click"/>
 
         <TextBox
             x:Name="ResultTextBox" IsReadOnly="True" TextAlignment="Center"

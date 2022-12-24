@@ -42,13 +42,13 @@ namespace ClassTeacher_Assist
 
         private void CalcAverageButton_Click(object sender, RoutedEventArgs e)
         {
-            Student? student = StudentComboBox.SelectedItem as Student;
+            List<Student> studentsOfClass = db.Students.Where(s => s.ClassId == currentTeacher.Class.ClassId).ToList();
             DateTime? fromDate = FromDatePicker.SelectedDate;
             DateTime? toDate = ToDatePicker.SelectedDate;
             Dictionary<string, int> subjectToGradePairs = new Dictionary<string, int>();
             Dictionary<string, int> subjectToAppearencePairs = new Dictionary<string, int>();
 
-            if (student is null || fromDate is null || toDate is null)
+            if (fromDate is null || toDate is null)
             {
                 MessageBox.Show("Усі поля мають бути заповнені");
                 return;
@@ -60,30 +60,47 @@ namespace ClassTeacher_Assist
                 return;
             }
 
-            var studentGrades = db.Grades.AsNoTracking().Include(g => g.Student).AsNoTracking()
+            ResultTextBox.Text = "";
+            foreach (var student in studentsOfClass)
+            {
+                ResultTextBox.Text += $"Борги {student.LastName} {student.FirstName}\n";
+                subjectToGradePairs = new Dictionary<string, int>();
+                subjectToAppearencePairs = new Dictionary<string, int>();
+
+                var studentGrades = db.Grades.AsNoTracking().Include(g => g.Student).AsNoTracking()
                 .Include(g => g.Teacher).ThenInclude(t => t.Subject).AsNoTracking()
                 .Where(g => (g.StudentId == student.StudentId) && (g.ReceivingDate >= fromDate) && (g.ReceivingDate <= toDate))
                 .ToList();
 
-            foreach (var grade in studentGrades)
-            {
-                string subjectName = grade.Teacher.Subject.Name;
-                if (!subjectToGradePairs.TryGetValue(subjectName, out int gradeValue))
+                foreach (var grade in studentGrades)
                 {
-                    subjectToGradePairs[subjectName] = 0;
-                    subjectToAppearencePairs[subjectName] = 0;
+                    string subjectName = grade.Teacher.Subject.Name;
+                    if (!subjectToGradePairs.TryGetValue(subjectName, out int gradeValue))
+                    {
+                        subjectToGradePairs[subjectName] = 0;
+                        subjectToAppearencePairs[subjectName] = 0;
+                    }
+                    subjectToGradePairs[subjectName] += grade.Value;
+                    subjectToAppearencePairs[subjectName] += 1;
                 }
-                subjectToGradePairs[subjectName] += grade.Value;
-                subjectToAppearencePairs[subjectName] += 1;
+                int debts = 0;
+                for (int i = 0; i < subjectToGradePairs.Count; i++)
+                {
+                    var subjToGradeKV = subjectToGradePairs.ElementAt(i);
+                    var subjToAppearKV = subjectToAppearencePairs.ElementAt(i);
+                    double grade = Math.Round((double)subjToGradeKV.Value / subjToAppearKV.Value, 1);
+                    if (grade < 3)
+                    {
+                        debts++;
+                        ResultTextBox.Text += $"{subjToGradeKV.Key}: {grade} бал(-ів)\n";
+                    }
+                    
+                }
+
+                if (debts == 0) ResultTextBox.Text += "Боргів немає\n";
             }
-            ResultTextBox.Text = "";
-            for(int i = 0; i < subjectToGradePairs.Count; i++)
-            {
-                var subjToGradeKV = subjectToGradePairs.ElementAt(i);
-                var subjToAppearKV = subjectToAppearencePairs.ElementAt(i);
-                double grade = Math.Round((double)subjToGradeKV.Value / subjToAppearKV.Value, 1);
-                ResultTextBox.Text += $"{subjToGradeKV.Key}: {grade} бал(-ів){(grade < 3 ? " !! УВАГА !!" : "")}\n";
-            }
+
+            
 
         }
 

@@ -303,7 +303,7 @@ namespace ClassTeacher_Assist
                     new DataGridTextColumn() { Binding = new Binding("FirstName"), Header = "Ім'я" },
                     new DataGridTextColumn() { Binding = new Binding("Patronymic"), Header = "По-батькові" },
                     new DataGridTextColumn() { Binding = new Binding("Class.ClassCode"), Header = "Клас" },
-                    new DataGridTextColumn() { Binding = new Binding("SumOfGrades"), Header = "Сума оцінок" },
+                    new DataGridTextColumn() { Binding = new Binding("SumOfGrades"), Header = "Середня оцінка" },
                 }
             },
             {
@@ -439,12 +439,12 @@ namespace ClassTeacher_Assist
         private void FindStudentButton_Click(object sender, RoutedEventArgs e)
         {
             PostgresContext db = new PostgresContext();
-            string phoneNumber = NumberTextBox.Text;
+            string lastName = NumberTextBox.Text;
 
             Teacher? teacher = db.Teachers.AsNoTracking().Include(t => t.Subject).AsNoTracking().Include(t => t.Class).AsNoTracking()
-                .Where(t => t.PhoneNumber == phoneNumber).FirstOrDefault();
+                .Where(t => t.LastName == lastName).FirstOrDefault();
             Student? student = db.Students.AsNoTracking().Include(s => s.Class).AsNoTracking()
-                .Where(s => s.PhoneNumber == phoneNumber).FirstOrDefault();
+                .Where(s => s.LastName == lastName).FirstOrDefault();
 
             if (teacher is not null)
                 FillDataGridWith(columns["Усі вчителі"], new List<Teacher>() { teacher }, MainDataGrid);
@@ -452,7 +452,7 @@ namespace ClassTeacher_Assist
                 FillDataGridWith(columns["Учні"], new List<Student>() { student }, MainDataGrid);
             else
             {
-                MessageBox.Show("За вказаним номером телефону не було знайдено вчителя чи учня");
+                MessageBox.Show("За вказаним прізвищем не було знайдено вчителя чи учня");
                 return;
             }
 
@@ -503,7 +503,7 @@ namespace ClassTeacher_Assist
                     FillDataGridWith<Student>(columns["Кількість пропусків студента"], skipsPerStudent, MainDataGrid);
                     CurrentTableTextBox.Text = "Статистика";
                     break;
-                case "Кращі 5 учнів за оцінками":
+                case "Кращі 5 учнів-відмінників":
                     var students = db.Students.AsNoTracking().Include(s => s.Grades).AsNoTracking().Include(s => s.Class).AsNoTracking().ToList();
 
                     if (students.Count == 0)
@@ -512,7 +512,12 @@ namespace ClassTeacher_Assist
                         return;
                     }
 
-                    students.ForEach(s => s.SumOfGrades = s.Grades.Sum(g => g.Value));
+                    students.ForEach(s =>
+                    {
+                        int divider = s.Grades.Sum(g => g.Value);
+                        int dividable = s.Grades.Count == 0 ? 1 : s.Grades.Count;
+                        s.SumOfGrades = (Convert.ToInt32(Math.Round((double) divider / dividable)));
+                    });
                     students = students.OrderByDescending(s => s.SumOfGrades).Take(5).ToList();
 
                     FillDataGridWith<Student>(columns["Кращі учні за оцінками"], students, MainDataGrid);

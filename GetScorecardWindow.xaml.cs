@@ -108,7 +108,7 @@ namespace ClassTeacher_Assist
             {
                 var subjToGradeKV = subjectToGradePairs.ElementAt(i);
                 var subjToAppearKV = subjectToAppearencePairs.ElementAt(i);
-                double grade = Math.Round((double)subjToGradeKV.Value / subjToAppearKV.Value, 1);
+                double grade = Math.Round((double)subjToGradeKV.Value / subjToAppearKV.Value);
                 gfx.DrawString($"{subjToGradeKV.Key}: {grade} бал(-ів)", font, XBrushes.Black, new XRect(xOffset, currentStep, page.Width, page.Height), XStringFormats.TopLeft);
                 currentStep += yStep;
             }
