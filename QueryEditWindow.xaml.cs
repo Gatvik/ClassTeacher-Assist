@@ -49,7 +49,7 @@ namespace ClassTeacher_Assist
 
             try
             {
-                NpgsqlConnection connection = new NpgsqlConnection("Host=localhost;Database=postgres;Username=postgres;Password=evalone19200319;");
+                NpgsqlConnection connection = new NpgsqlConnection("Host=localhost;Database=course;Username=postgres;Password=evalone19200319;");
 
 
                 var ds = new DataSet();

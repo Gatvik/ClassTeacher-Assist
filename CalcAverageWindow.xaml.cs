@@ -63,7 +63,7 @@ namespace ClassTeacher_Assist
             ResultTextBox.Text = "";
             foreach (var student in studentsOfClass)
             {
-                ResultTextBox.Text += $"Борги {student.LastName} {student.FirstName}\n";
+                StringBuilder strToAppend = new StringBuilder($"Борги {student.LastName} {student.FirstName}\n");
                 subjectToGradePairs = new Dictionary<string, int>();
                 subjectToAppearencePairs = new Dictionary<string, int>();
 
@@ -92,12 +92,13 @@ namespace ClassTeacher_Assist
                     if (grade < 3)
                     {
                         debts++;
-                        ResultTextBox.Text += $"{subjToGradeKV.Key}: {grade} бал(-ів)\n";
+                        strToAppend.Append($"{subjToGradeKV.Key}: {grade} бал(-ів)\n");
                     }
                     
                 }
 
-                if (debts == 0) ResultTextBox.Text += "Боргів немає\n";
+                if (debts == 0) continue;
+                else ResultTextBox.Text += strToAppend.ToString();
             }
 
             

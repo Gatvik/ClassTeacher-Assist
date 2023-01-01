@@ -159,12 +159,12 @@
         <Button x:Name="QueryEditButton" Content="Вікно запитів" Background="#855569" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="626,590,0,0" Width="210" Height="33" FontSize="20" Cursor="Hand" Click="QueryEditButton_Click"/>
 
         <TextBlock 
-            HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-            Margin="0,0,120,120"
+            HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+            Margin="440,0,0,132"
             FontSize="20" TextAlignment="Center">
             Статистика
         </TextBlock>
-        <ComboBox FontSize="16" x:Name="StatsComboBox" HorizontalAlignment="Left" Margin="411,545,0,0" VerticalAlignment="Top" Width="152" SelectionChanged="StatsComboBox_SelectionChanged">
+        <ComboBox FontSize="16" x:Name="StatsComboBox" HorizontalAlignment="Left" Margin="411,533,0,0" VerticalAlignment="Top" Width="152" SelectionChanged="StatsComboBox_SelectionChanged">
             <ComboBoxItem>
                 Кількість пропусків за учнями
             </ComboBoxItem>
@@ -178,7 +178,13 @@
                 5 класів з найбільшою кількістю викладань
             </ComboBoxItem>
         </ComboBox>
+
+        <RadioButton IsChecked="True" x:Name="SortSelfClassRadioButton" GroupName="FilteringSort" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Content="Ваш клас" HorizontalAlignment="Left" Margin="429,0,0,62" VerticalAlignment="Bottom" Checked="FilteringSort_Changed"/>
+        <RadioButton x:Name="SortAllClassesRadioButton" GroupName="FilteringSort" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Content="Усі класи" HorizontalAlignment="Left" Margin="430,0,0,37" VerticalAlignment="Bottom" Checked="FilteringSort_Changed"/>
+
         <Rectangle HorizontalAlignment="Left" Height="119" Margin="396,371,0,0" Stroke="Black" VerticalAlignment="Top" Width="440"/>
         <Rectangle HorizontalAlignment="Left" Height="218" Margin="10,371,0,0" Stroke="Black" VerticalAlignment="Top" Width="381"/>
+        <Rectangle HorizontalAlignment="Left" Height="124" Margin="406,499,0,0" Stroke="Black" VerticalAlignment="Top" Width="167"/>
+        <Rectangle HorizontalAlignment="Left" Height="206" Margin="844,374,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
     </Grid>
 </Window>

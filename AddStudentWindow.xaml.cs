@@ -101,7 +101,7 @@ namespace ClassTeacher_Assist
         private void CreateApplication(Student student, Class class_)
         {
             PostgresContext db = new PostgresContext();
-            var word = new WordWrite(@"E:\Projects\C#\ClassTeacher Assist\student_enroll.docx");
+            var word = new WordWrite(@"C:\Projects\C#\ClassTeacher-Assist\student_enroll.docx");
             class_ = db.Classes.AsNoTracking().Include(c => c.Teacher).AsNoTracking()
                 .Where(c => c.ClassId == class_.ClassId).First();
             Dictionary<string, string> keyValuePairs = new Dictionary<string, string>()

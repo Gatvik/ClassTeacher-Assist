@@ -13,7 +13,7 @@
             x:Name="StudentComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" Width="200" Height="30" FontSize="16">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path = FullName}"/>
+                    <TextBlock Text="{Binding Path = FullNameWithClass}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>

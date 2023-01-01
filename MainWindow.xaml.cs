@@ -480,10 +480,15 @@ namespace ClassTeacher_Assist
             CurrentTableTextBox.Text = "Пошук";
         }
 
+        private void FilteringSort_Changed(object sender, RoutedEventArgs e)
+        {
+            StatsComboBox_SelectionChanged(null, null);
+        }
+
         private void StatsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PostgresContext db = new PostgresContext();
-            string? selectedStat = ((ComboBoxItem)StatsComboBox.SelectedItem).Content.ToString();
+            string? selectedStat = ((ComboBoxItem)StatsComboBox.SelectedItem)?.Content?.ToString();
 
             if (selectedStat is null)
                 return;
@@ -491,8 +496,16 @@ namespace ClassTeacher_Assist
             switch (selectedStat)
             {
                 case "Кількість пропусків за учнями":
-                    var skipsPerStudent = db.Students.AsNoTracking().Include(s => s.Skips).AsNoTracking().Include(s => s.Class).ToList();
+                    List<Student> skipsPerStudent = new List<Student>();
 
+
+                    if(SortAllClassesRadioButton.IsChecked == true)
+                        skipsPerStudent = db.Students.AsNoTracking().Include(s => s.Skips).AsNoTracking().Include(s => s.Class)
+                        .OrderByDescending(s => s.Skips.Count).ToList();
+                    else if (SortSelfClassRadioButton.IsChecked == true)
+                        skipsPerStudent = db.Students.AsNoTracking().Include(s => s.Skips).AsNoTracking().Include(s => s.Class)
+                        .Where(s => s.ClassId == currentTeacher.Class.ClassId)
+                        .OrderByDescending(s => s.Skips.Count).ToList();
 
                     if (skipsPerStudent.Count == 0)
                     {
@@ -504,7 +517,14 @@ namespace ClassTeacher_Assist
                     CurrentTableTextBox.Text = "Статистика";
                     break;
                 case "Кращі 5 учнів-відмінників":
-                    var students = db.Students.AsNoTracking().Include(s => s.Grades).AsNoTracking().Include(s => s.Class).AsNoTracking().ToList();
+                    List<Student> students = new List<Student>();
+
+                    if (SortAllClassesRadioButton.IsChecked == true)
+                        students = db.Students.AsNoTracking().Include(s => s.Grades).AsNoTracking().Include(s => s.Class).AsNoTracking().ToList();
+                    else if (SortSelfClassRadioButton.IsChecked == true)
+                        students = db.Students.AsNoTracking().Include(s => s.Grades).AsNoTracking().Include(s => s.Class).AsNoTracking()
+                            .Where(s => s.ClassId == currentTeacher.Class.ClassId).ToList();
+
 
                     if (students.Count == 0)
                     {

@@ -31,7 +31,8 @@ namespace ClassTeacher_Assist
         {
             get
             {
-                return new BindingList<Student>(db.Students.AsNoTracking().ToList());
+                return new BindingList<Student>(db.Students.AsNoTracking().Include(s => s.Class).AsNoTracking()
+                    .ToList());
             }
             set { students = value; }
         }

@@ -36,5 +36,11 @@ public partial class Student
     }
 
     [NotMapped]
+    public string FullNameWithClass
+    {
+        get { return $"{LastName} {FirstName} {Patronymic} {Class.ClassCode}"; }
+    }
+
+    [NotMapped]
     public int SumOfGrades { get; set; }
 }

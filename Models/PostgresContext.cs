@@ -25,13 +25,13 @@ public partial class PostgresContext : DbContext
     public virtual DbSet<Student> Students { get; set; }
 
     public virtual DbSet<Subject> Subjects { get; set; }
-
+    
     public virtual DbSet<Teacher> Teachers { get; set; }
 
     public virtual DbSet<Teaching> Teachings { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=evalone19200319;Include Error Detail=true");
+        optionsBuilder.UseNpgsql("Host=localhost;Database=course;Username=postgres;Password=evalone19200319;Include Error Detail=true");
         optionsBuilder.EnableSensitiveDataLogging(true);
     }
 
